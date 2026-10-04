@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stress-test FRED · D3A Workshop 2026</title>
+  <meta name="description" content="Stress-test FRED: a community red-teaming workshop on a conversational AI for practicing parenting skills. D3A 2026, 8 October 2026, Hotel Nyborg Strand.">
+  <meta name="theme-color" content="#fdfefb">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Stress-test FRED · D3A Workshop 2026">
+  <meta property="og:description" content="A community red-teaming workshop on a conversational AI for practicing parenting skills. 8 October 2026, Hotel Nyborg Strand.">
+  <meta property="og:url" content="https://eparascho.github.io/stress-test-fred/">
+  <meta property="og:image" content="https://eparascho.github.io/stress-test-fred/assets/slides/slide-01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <script>
+    // Show the right tab before first paint (see assets/js/main.js for routing).
+    (function (d) {
+      var pages = ['home', 'agenda', 'fred', 'examples', 'instructions', 'findings'];
+      var hash = location.hash.slice(1);
+      d.className += ' js';
+      d.setAttribute('data-page', pages.indexOf(hash) > -1 ? hash : 'home');
+    })(document.documentElement);
+  </script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/examples-data.js" defer></script>
+  <script src="assets/slides/slides.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-skip-link>Skip to content</a>
+
+  <!-- Icon set (stroke icons in the style of Lucide, ISC licence) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-fred" viewBox="0 0 24 24"><path d="M14.5 3.5v12M9.3 6.5l10.4 6M9.3 12.5l10.4-6M4 21c2-3.8 4.8-7.6 9.6-10.8"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></symbol>
+    <symbol id="i-clipboard-check" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-lifebuoy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><path d="M18 11c-1.5 0-2.5.5-3 2M4 6a2 2 0 0 0-2 2v4a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V8a2 2 0 0 0-2-2h-3a8 8 0 0 0-5 2 8 8 0 0 0-5-2zM6 11c1.5 0 2.5.5 3 2"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+    <symbol id="i-scenario" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4M2 8h20M6 4v4"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.73 5.08a10.74 10.74 0 0 1 11.2 6.57 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-1.44 2.49M14.08 14.16a3 3 0 0 1-4.24-4.24M17.48 17.5a10.75 10.75 0 0 1-15.42-5.15 1 1 0 0 1 0-.7 10.75 10.75 0 0 1 4.45-5.14M2 2l20 20"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-clipboard-list" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M12 11h4M12 16h4M8 11h.01M8 16h.01"/></symbol>
+    <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.17a2 2 0 0 0-.59-1.42L12 12l-4.41 4.41A2 2 0 0 0 7 17.83V22M7 2v4.17a2 2 0 0 0 .59 1.42L12 12l4.41-4.41A2 2 0 0 0 17 6.17V2"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0zM22 10v6M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.11 5.55a2 2 0 0 0 1.78 0l3.66-1.83A1 1 0 0 1 21 4.62v12.76a1 1 0 0 1-.55.9l-4.56 2.27a2 2 0 0 1-1.78 0l-4.22-2.1a2 2 0 0 0-1.78 0l-3.66 1.83A1 1 0 0 1 3 19.38V6.62a1 1 0 0 1 .55-.9l4.56-2.27a2 2 0 0 1 1.78 0zM15 5.76v15M9 3.24v15"/></symbol>
+  </svg>
+
+  <header class="site-header" data-header>
+    <div class="container site-header__inner">
+      <a class="brand" href="#home">
+        <svg class="brand__mark" viewBox="0 0 36 36" aria-hidden="true">
+          <rect width="36" height="36" rx="10" fill="#8AC040"/>
+          <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">
+            <path d="M22.5 7.5v13M16.87 10.75l11.26 6.5M16.87 17.25l11.26-6.5M8 28.5c2.6-4.6 6.4-8.7 13.4-13.2"/>
+          </g>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">Stress-test FRED</span>
+          <span class="brand__sub">D3A Workshop 2026</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <svg class="icon nav-toggle__open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon nav-toggle__close" aria-hidden="true"><use href="#i-x"/></svg>
+        <span class="visually-hidden">Menu</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#home" data-nav="home">Home</a></li>
+          <li><a class="site-nav__link" href="#agenda" data-nav="agenda">Agenda</a></li>
+          <li><a class="site-nav__link" href="#fred" data-nav="fred">Meet FRED</a></li>
+          <li><a class="site-nav__link" href="#examples" data-nav="examples">Examples</a></li>
+          <li><a class="site-nav__link" href="#instructions" data-nav="instructions">Instructions</a></li>
+          <li><a class="site-nav__link" href="#findings" data-nav="findings">Findings</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- =============================== HOME =============================== -->
+    <section class="page" id="home" aria-labelledby="home-title">
+      <div class="container">
+        <div class="hero">
+          <div class="hero__content">
+            <p class="eyebrow">D3A Workshop · 8&nbsp;October 2026</p>
+            <h1 class="hero__title" id="home-title" tabindex="-1">Stress-test <span>FRED</span></h1>
+            <p class="hero__lead">A community red-teaming workshop on a conversational AI for practicing parenting skills.</p>
+            <ul class="hero__meta">
+              <li>
+                <span class="hero__meta-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+                Thursday, 8&nbsp;October 2026
+              </li>
+              <li>
+                <span class="hero__meta-icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span>
+                11:00–12:30
+              </li>
+              <li>
+                <span class="hero__meta-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
+                <span>Sal D, Hotel Nyborg Strand, Nyborg · <a href="https://d3aconference.dk" target="_blank" rel="noopener">D3A&nbsp;2026</a></span>
+              </li>
+            </ul>
+            <div class="btn-row">
+              <a class="btn btn--primary" href="#agenda">See the agenda <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </div>
+          </div>
+
+          <div class="hero__visual">
+            <svg class="hero__bursts" viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".5">
+                <path d="M70 98v44M50.95 109l38.1 22M50.95 131l38.1-22M18 205c14-34 28-60 50-81"/>
+                <path d="M440 74v32M426.14 82l27.72 16M426.14 98l27.72-16M378 172c18-34 36-58 60-78"/>
+                <path d="M430 444v52M407.48 457l45.04 26M407.48 483l45.04-26M338 566c24-40 52-68 90-92"/>
+                <path d="M90 486v28M77.88 493l24.24 14M77.88 507l24.24-14M38 574c12-26 28-50 50-70"/>
+              </g>
+            </svg>
+            <img src="assets/img/fred-app.png" width="358" height="697" alt="FRED's start screen on a phone: the FRED logo on a green background with a Start button.">
+          </div>
+        </div>
+
+        <section class="section" aria-labelledby="welcome-title">
+          <div class="split">
+            <div>
+              <p class="eyebrow">Welcome</p>
+              <h2 class="section-title" id="welcome-title">Today, you become a red-teamer</h2>
+            </div>
+            <p class="section-lead">Together, we will stress-test FRED, a conversational AI for learning parenting skills, to uncover the risks it may pose to the people who use it.</p>
+          </div>
+          <div class="grid grid--3">
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+              <h3>Community-based</h3>
+              <p>Parents, non-parents, and mental health and computer science professionals, side by side.</p>
+            </article>
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg></span>
+              <h3>Hands-on</h3>
+              <p>You write the prompts and chat with FRED directly.</p>
+            </article>
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-contrast"/></svg></span>
+              <h3>Two perspectives</h3>
+              <p>Benign and adversarial use, to see risks from both sides.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="team" aria-labelledby="team-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">The people behind the workshop</p>
+              <h2 class="section-title" id="team-title">Organizing team</h2>
+            </div>
+          </div>
+          <ul class="team">
+            <li class="person">
+              <img class="person__avatar" src="assets/img/team/nicole-lonfeldt.jpg" width="104" height="104" alt="" loading="lazy">
+              <h3 class="person__name">Nicole Lønfeldt</h3>
+              <p class="person__role">Psychologist and Associate Professor</p>
+            </li>
+            <li class="person">
+              <img class="person__avatar" src="assets/img/team/line-clemmensen.jpg" width="104" height="104" alt="" loading="lazy">
+              <h3 class="person__name">Line Clemmensen</h3>
+              <p class="person__role">Professor of AI and Machine Learning, DTU and University of Copenhagen</p>
+            </li>
+            <li class="person">
+              <img class="person__avatar" src="assets/img/team/paula-petcu.jpg" width="104" height="104" alt="" loading="lazy">
+              <h3 class="person__name">Paula Petcu</h3>
+              <p class="person__role">Chief Executive Officer, Interhuman AI</p>
+            </li>
+            <li class="person">
+              <span class="person__avatar person__avatar--initials" aria-hidden="true">S</span>
+              <h3 class="person__name">Sid</h3>
+              <p class="person__role"><span class="todo">[Role, affiliation]</span></p>
+            </li>
+            <li class="person">
+              <img class="person__avatar" src="assets/img/team/eva-paraschou.jpg" width="104" height="104" alt="" loading="lazy">
+              <h3 class="person__name">Eva Paraschou</h3>
+              <p class="person__role">MSCA PhD Fellow in AI Alignment in Mental Health, DTU</p>
+            </li>
+            <li class="person">
+              <img class="person__avatar" src="assets/img/team/simge-genc.jpg" width="104" height="104" alt="" loading="lazy">
+              <h3 class="person__name">Simge Genç</h3>
+              <p class="person__role">PhD Fellow, <span class="todo">[field, affiliation]</span></p>
+            </li>
+            <li class="person">
+              <span class="person__avatar person__avatar--initials" aria-hidden="true">S</span>
+              <h3 class="person__name">Sneha</h3>
+              <p class="person__role"><span class="todo">[Role, affiliation]</span></p>
+            </li>
+            <li class="person">
+              <span class="person__avatar person__avatar--initials" aria-hidden="true">C</span>
+              <h3 class="person__name">Camilla</h3>
+              <p class="person__role"><span class="todo">[Role, affiliation]</span></p>
+            </li>
+            <li class="person">
+              <span class="person__avatar person__avatar--initials" aria-hidden="true">C</span>
+              <h3 class="person__name">Cecilie</h3>
+              <p class="person__role"><span class="todo">[Role, affiliation]</span></p>
+            </li>
+            <li class="person">
+              <span class="person__avatar person__avatar--initials" aria-hidden="true">A</span>
+              <h3 class="person__name">Ahcene</h3>
+              <p class="person__role"><span class="todo">[Role, affiliation]</span></p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="section" id="before-you-take-part" aria-labelledby="consent-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Before you take part</p>
+              <h2 class="section-title" id="consent-title">Consent, conflicts of interest and funding</h2>
+            </div>
+          </div>
+          <div class="info-grid">
+            <article class="card card--consent">
+              <div class="card__head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-clipboard-check"/></svg></span>
+                <h3>Informed consent</h3>
+              </div>
+              <ul class="check-list">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Participation is voluntary.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Your conversations with FRED and the final documentation are anonymous.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Conversations and documentation are collected and stored in Interhuman AI's databases.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>The organizing team will analyze them descriptively and qualitatively.</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>By taking part in the activity, you consent to all of the above.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <div class="card__head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg></span>
+                <h3>Conflicts of interest</h3>
+              </div>
+              <p><span class="todo">[Please add here]</span></p>
+            </article>
+            <article class="card">
+              <div class="card__head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-coins"/></svg></span>
+                <h3>Funding</h3>
+              </div>
+              <p><span class="todo">[Please add here]</span></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="contact-title">
+          <div class="contact-card">
+            <div>
+              <h2 class="section-title" id="contact-title">Questions?</h2>
+              <p>Get in touch with the organizing team. We are happy to help.</p>
+            </div>
+            <a class="btn btn--primary" data-config-email>
+              <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+              <span data-email-text><span class="todo">[contact email]</span></span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================== AGENDA ============================== -->
+    <section class="page" id="agenda" aria-labelledby="agenda-title">
+      <div class="container">
+        <header class="page-header">
+          <p class="eyebrow">Thursday, 8&nbsp;October 2026 · 11:00–12:30 · Sal D, Hotel Nyborg Strand</p>
+          <h1 class="page-title" id="agenda-title" tabindex="-1">Agenda</h1>
+          <p class="lead">A short introduction to FRED and red-teaming, followed by 50 minutes of hands-on red-teaming in groups and a joint look at what you found.</p>
+        </header>
+
+        <div class="agenda-wrap">
+          <table class="agenda">
+            <caption class="visually-hidden">Workshop agenda with time, session, speaker and duration</caption>
+            <thead>
+              <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Session</th>
+                <th scope="col">Speaker</th>
+                <th scope="col">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="agenda__time">11:00–11:05</td>
+                <td class="agenda__session">Welcome</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Nicole Lønfeldt</span><span class="speaker__aff"><span class="todo">[Affiliation]</span></span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">11:05–11:10</td>
+                <td class="agenda__session">Introduction to FRED</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Simge Genç</span><span class="speaker__aff"><span class="todo">[Affiliation]</span></span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">11:10–11:15</td>
+                <td class="agenda__session">Risks and red-teaming</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Line Clemmensen</span><span class="speaker__aff">DTU and University of Copenhagen</span></span>
+                  <span class="speaker"><span class="speaker__name">Sid</span><span class="speaker__aff"><span class="todo">[Affiliation]</span></span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">11:15–11:20</td>
+                <td class="agenda__session">Groups and workshop website</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Eva Paraschou</span><span class="speaker__aff">DTU</span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">11:20–11:25</td>
+                <td class="agenda__session">Red-teaming instructions</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Eva Paraschou</span><span class="speaker__aff">DTU</span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+              <tr class="is-highlight">
+                <td class="agenda__time">11:25–12:15</td>
+                <td class="agenda__session">Red-teaming activity <span class="tag">Hands-on</span></td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">All participants</span><span class="speaker__aff">Supported by the organizing team</span></span>
+                </td>
+                <td class="agenda__duration">50 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">12:15–12:25</td>
+                <td class="agenda__session">Group findings</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Line Clemmensen</span><span class="speaker__aff">DTU and University of Copenhagen</span></span>
+                  <span class="speaker"><span class="speaker__name">Sid</span><span class="speaker__aff"><span class="todo">[Affiliation]</span></span></span>
+                </td>
+                <td class="agenda__duration">10 min</td>
+              </tr>
+              <tr>
+                <td class="agenda__time">12:25–12:30</td>
+                <td class="agenda__session">Closing remarks</td>
+                <td class="agenda__speaker">
+                  <span class="speaker"><span class="speaker__name">Nicole Lønfeldt</span><span class="speaker__aff"><span class="todo">[Affiliation]</span></span></span>
+                </td>
+                <td class="agenda__duration">5 min</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <section class="section" id="slides" aria-labelledby="slides-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Presentation</p>
+              <h2 class="section-title" id="slides-title">Workshop slides</h2>
+              <p class="section-lead">Browse the slides presented at the workshop, or download them as a PDF.</p>
+            </div>
+            <a class="btn btn--secondary" href="assets/slides/stress-test-fred-slides.pdf" download data-slides-pdf>
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Download PDF
+            </a>
+          </div>
+
+          <div class="viewer" data-viewer>
+            <div class="viewer__stage" data-slide-stage>
+              <img class="viewer__img" src="assets/slides/slide-01.jpg" width="1920" height="1080" alt="Slide 1: Stress-test FRED" data-slide-img>
+              <button class="viewer__arrow viewer__arrow--prev" type="button" data-slide-prev>
+                <svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg><span class="visually-hidden">Previous slide</span>
+              </button>
+              <button class="viewer__arrow viewer__arrow--next" type="button" data-slide-next>
+                <svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg><span class="visually-hidden">Next slide</span>
+              </button>
+              <button class="viewer__exit" type="button" data-slide-exit>
+                <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg><span class="visually-hidden">Exit full screen</span>
+              </button>
+            </div>
+            <div class="viewer__bar">
+              <span class="viewer__count" aria-hidden="true" data-slide-count>1 / 1</span>
+              <span class="viewer__title" aria-hidden="true" data-slide-title></span>
+              <span class="visually-hidden" aria-live="polite" data-slide-live></span>
+              <button class="icon-btn" type="button" data-slide-fullscreen>
+                <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg><span class="visually-hidden">View slides full screen</span>
+              </button>
+            </div>
+            <div class="viewer__thumbs" role="group" aria-label="All slides" data-slide-thumbs></div>
+          </div>
+          <noscript>
+            <p class="section-lead">Turn on JavaScript to browse the slides here, or <a href="assets/slides/stress-test-fred-slides.pdf">download them as a PDF</a>.</p>
+          </noscript>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================ MEET FRED ============================= -->
+    <section class="page" id="fred" aria-labelledby="fred-title">
+      <div class="container">
+        <div class="fred-intro">
+          <div>
+            <header class="page-header">
+              <p class="eyebrow">The application</p>
+              <h1 class="page-title" id="fred-title" tabindex="-1">Meet FRED</h1>
+              <p class="lead">FRED is a conversational AI that helps parents of children with emotional and behavioral problems learn and practice parenting skills.</p>
+            </header>
+            <div class="card why-card">
+              <h2>Why we built it</h2>
+              <p><span class="todo">[Motivation for creating FRED.]</span></p>
+            </div>
+          </div>
+
+          <aside class="facts" aria-labelledby="facts-title">
+            <p class="facts__title" id="facts-title">
+              <svg class="icon" aria-hidden="true"><use href="#i-fred"/></svg>FRED at a glance
+            </p>
+            <dl>
+              <div class="facts__row">
+                <dt>Full name</dt>
+                <dd><i lang="da">Familie Resiliens med Empati og Dialog</i><small>Danish for Family Resilience with Empathy and Dialogue</small></dd>
+              </div>
+              <div class="facts__row">
+                <dt>Who it is for</dt>
+                <dd>Parents seeking help for a child with emotional and behavioral problems</dd>
+              </div>
+              <div class="facts__row">
+                <dt>What it does</dt>
+                <dd>Helps parents learn and practice parenting skills</dd>
+              </div>
+              <div class="facts__row">
+                <dt>Type</dt>
+                <dd>Conversational AI</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+
+        <section class="section" aria-labelledby="component-title">
+          <div class="split">
+            <div>
+              <p class="eyebrow">Today we test</p>
+              <h2 class="section-title component__title" id="component-title">Suggest a child-friendly activity to strengthen your relationship</h2>
+            </div>
+            <p class="section-lead">In this part of FRED, a parent asks for an activity to do with their child, and FRED suggests a child-friendly one that can strengthen their relationship. It is the focus of today's red-teaming.</p>
+          </div>
+
+          <article class="card">
+            <div class="card__head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg></span>
+              <h3>Purpose of use</h3>
+            </div>
+            <p><span class="todo">[What parents use this component for, and typical situations in which a parent would ask for an activity.]</span></p>
+          </article>
+
+          <div class="devbox on-dark" aria-labelledby="dev-title" role="region">
+            <div class="devbox__head">
+              <span class="devbox__icon"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></span>
+              <div>
+                <h3 class="devbox__title" id="dev-title">Development info</h3>
+                <p class="devbox__intro">What is currently implemented in FRED for this component, so you know which guardrails and safeguards you are testing against.</p>
+              </div>
+            </div>
+            <dl class="devbox__list">
+              <div class="devbox__item">
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Knowledge sources</dt>
+                <dd><span class="todo">[The books and other sources FRED's suggestions are based on.]</span></dd>
+              </div>
+              <div class="devbox__item">
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-shield-check"/></svg>Guardrails</dt>
+                <dd>
+                  <ul>
+                    <li><span class="todo">[Guardrail, e.g. topics FRED declines to discuss]</span></li>
+                    <li><span class="todo">[Guardrail, e.g. how FRED keeps suggestions age-appropriate]</span></li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="devbox__item">
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-lifebuoy"/></svg>Safeguards</dt>
+                <dd>
+                  <ul>
+                    <li><span class="todo">[Safeguard, e.g. how FRED responds to signs of crisis or risk to a child]</span></li>
+                    <li><span class="todo">[Safeguard, e.g. when FRED refers parents to professional help]</span></li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="devbox__item">
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Known limitations</dt>
+                <dd><span class="todo">[What this component is not designed to do.]</span></dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================= EXAMPLES ============================= -->
+    <section class="page" id="examples" aria-labelledby="examples-title">
+      <div class="container">
+        <header class="page-header">
+          <p class="eyebrow">Red-teaming examples</p>
+          <h1 class="page-title" id="examples-title" tabindex="-1">How risks can show up</h1>
+          <p class="lead">Red-teaming means probing a system in ways that can make it expose risks, to find them before real users do. People may cause risky responses on purpose or by accident, so every example comes in two versions: one with benign intent and one with adversarial intent.</p>
+        </header>
+
+        <div class="intent-bar" data-intent-bar>
+          <fieldset class="intent-switch">
+            <legend class="visually-hidden">Intent</legend>
+            <input type="radio" name="intent" id="intent-benign" value="benign" checked>
+            <label for="intent-benign"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>Benign</label>
+            <input type="radio" name="intent" id="intent-adversarial" value="adversarial">
+            <label for="intent-adversarial"><svg class="icon" aria-hidden="true"><use href="#i-mask"/></svg>Adversarial</label>
+          </fieldset>
+          <div class="intent-desc" data-intent-desc="benign">
+            <h2>Benign intent</h2>
+            <p>You use FRED as an ordinary parent would, in good faith. Risks can still appear without anyone intending them.</p>
+          </div>
+          <div class="intent-desc" data-intent-desc="adversarial" hidden>
+            <h2>Adversarial intent</h2>
+            <p>You deliberately try to make FRED respond harmfully. Think like a competitor, a hacker or a curious teenager.</p>
+          </div>
+        </div>
+
+        <p class="sample-note" data-sample-note hidden>
+          <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+          <span>Sample content: these conversations are placeholders and will be replaced with the final examples.</span>
+        </p>
+        <p class="sample-note example-warning">
+          <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+          <span>These examples are hypothetical and do not represent actual interactions with FRED.</span>
+        </p>
+
+        <div class="explorer" data-explorer>
+          <div class="risk-nav">
+            <p class="risk-nav__label" id="risk-nav-label">Risks</p>
+            <div class="risk-list" role="tablist" aria-labelledby="risk-nav-label" data-risk-list></div>
+          </div>
+          <article class="example" id="example-panel" role="tabpanel" tabindex="-1" data-example-panel></article>
+        </div>
+        <noscript>
+          <p class="section-lead">Turn on JavaScript to read the example conversations.</p>
+        </noscript>
+
+        <section class="section" aria-labelledby="more-risks-title">
+          <div class="risk-cloud">
+            <p class="eyebrow">Beyond these examples</p>
+            <h2 class="section-title" id="more-risks-title">More risks to explore</h2>
+            <p class="risk-cloud__intro">Risks identified in the literature when people interact with conversational AI in mental health. Use them as inspiration when you brainstorm.</p>
+            <ul class="risk-cloud__words">
+              <li class="rc rc--s rc--teal">Unequal access</li>
+              <li class="rc rc--l rc--cream">Not for severe cases</li>
+              <li class="rc rc--s rc--amber">Anchoring</li>
+              <li class="rc rc--m rc--green">Youth development</li>
+              <li class="rc rc--s rc--teal">Rogue AI</li>
+              <li class="rc rc--l rc--cream">Sycophancy</li>
+              <li class="rc rc--m rc--amber">Romanticization</li>
+              <li class="rc rc--m rc--teal">Addiction</li>
+              <li class="rc rc--xl rc--green">Self-harm enablement</li>
+              <li class="rc rc--m rc--cream">Disinformation</li>
+              <li class="rc rc--s rc--green">Vagueness</li>
+              <li class="rc rc--l rc--teal">Hallucinations</li>
+              <li class="rc rc--m rc--amber">Medical advice</li>
+              <li class="rc rc--l rc--cream">Emotional dependence</li>
+              <li class="rc rc--s rc--green">Invalidation</li>
+              <li class="rc rc--m rc--teal">Stigma</li>
+              <li class="rc rc--l rc--green">Bias &amp; discrimination</li>
+              <li class="rc rc--s rc--cream">Training bias</li>
+              <li class="rc rc--l rc--amber">Privacy leaks</li>
+              <li class="rc rc--s rc--green">Reassurance loops</li>
+              <li class="rc rc--l rc--teal">Lack of empathy</li>
+              <li class="rc rc--m rc--amber">Hate speech</li>
+              <li class="rc rc--m rc--green">Minimizing risk</li>
+              <li class="rc rc--m rc--cream">Overreliance</li>
+              <li class="rc rc--s rc--teal">Language gaps</li>
+              <li class="rc rc--m rc--amber">Data security</li>
+              <li class="rc rc--s rc--teal">Prioritization errors</li>
+              <li class="rc rc--s rc--cream">Chatbot oversupply</li>
+            </ul>
+            <p class="risk-cloud__source">Based on Diel et al., 2026; Weilnhammer et al., 2026; Balazadeh et al., 2025; Weidinger et al., 2022.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- =========================== INSTRUCTIONS =========================== -->
+    <section class="page" id="instructions" aria-labelledby="instructions-title">
+      <div class="container">
+        <header class="page-header">
+          <p class="eyebrow">Instructions</p>
+          <h1 class="page-title" id="instructions-title" tabindex="-1">How the activity works</h1>
+          <p class="lead">For 50 minutes, you will work with your group to stress-test FRED. Here is what to aim for and how to go about it.</p>
+        </header>
+
+        <div class="goal">
+          <p class="goal__label"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>Your goal</p>
+          <p class="goal__text">Write prompts that are likely to draw out <em>diverse risks</em> from FRED, then discuss which risks appear in your conversations.</p>
+        </div>
+
+        <section class="section" aria-labelledby="steps-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Three steps</p>
+              <h2 class="section-title" id="steps-title">Brainstorm, chat, document</h2>
+              <p class="section-lead">Go through the steps as often as you like. A conversation with FRED will often spark a new idea to try.</p>
+            </div>
+            <p class="chip"><svg class="icon" aria-hidden="true"><use href="#i-repeat"/></svg>Iterative</p>
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <div class="step__top">
+                <span class="step__num" aria-hidden="true">1</span>
+                <span class="step__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>~10 min</span>
+              </div>
+              <h3 class="step__title">Brainstorm</h3>
+              <ul class="step__list">
+                <li>Pick scenarios and risks to try.</li>
+                <li>Use your expertise and parental role to shape the prompts.</li>
+                <li>Get inspired by the examples on this website.</li>
+              </ul>
+              <a class="btn btn--secondary step__action" href="#examples">Browse the examples <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            </li>
+            <li class="step">
+              <div class="step__top">
+                <span class="step__num" aria-hidden="true">2</span>
+                <span class="step__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>~30 min</span>
+              </div>
+              <h3 class="step__title">Chat with FRED</h3>
+              <ul class="step__list">
+                <li>Open FRED from this website.</li>
+                <li>Enter your group number and intent.</li>
+                <li>Try your ideas individually.</li>
+              </ul>
+              <a class="btn btn--primary step__action" data-config-href="fredUrl" data-pending-label="FRED link coming soon" target="_blank" rel="noopener">
+                <span data-label>Open FRED</span> <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+              </a>
+            </li>
+            <li class="step">
+              <div class="step__top">
+                <span class="step__num" aria-hidden="true">3</span>
+                <span class="step__time"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>~10 min</span>
+              </div>
+              <h3 class="step__title">Document</h3>
+              <ul class="step__list">
+                <li>Submit one report per group with everyone's contributions.</li>
+                <li>Get ready to briefly present your findings.</li>
+              </ul>
+              <div class="step__note">
+                <p>The report asks:</p>
+                <ol>
+                  <li>How did different members contribute to the activity?</li>
+                  <li>How important was each contribution?</li>
+                  <li>Which risks did you identify?</li>
+                </ol>
+              </div>
+              <a class="btn btn--secondary step__action" data-config-href="reportFormUrl" data-pending-label="Form link coming soon" target="_blank" rel="noopener">
+                <span data-label>Open the report form</span> <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="good-to-know-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Before you start</p>
+              <h2 class="section-title" id="good-to-know-title">Good to know</h2>
+            </div>
+          </div>
+          <ul class="tips">
+            <li class="tip">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-window"/></svg></span>
+              <div>
+                <h3>Stay in the same browser</h3>
+                <p>Use FRED in the same browser throughout, even when you start a new conversation.</p>
+              </div>
+            </li>
+            <li class="tip">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-eye-off"/></svg></span>
+              <div>
+                <h3>Don't share sensitive information</h3>
+                <p>Use made-up details, never your own or your family's.</p>
+              </div>
+            </li>
+            <li class="tip">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+              <div>
+                <h3>Chat with FRED individually</h3>
+                <p>Try the different ideas from your group's brainstorm on your own.</p>
+              </div>
+            </li>
+            <li class="tip">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-clipboard-list"/></svg></span>
+              <div>
+                <h3>One report per group</h3>
+                <p>Include every member's individual contributions.</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================= FINDINGS ============================= -->
+    <section class="page" id="findings" aria-labelledby="findings-title">
+      <div class="container">
+        <header class="page-header">
+          <p class="eyebrow">Findings</p>
+          <h1 class="page-title" id="findings-title" tabindex="-1">Workshop findings</h1>
+          <p class="lead">What we learn together at the workshop will be shared here.</p>
+        </header>
+
+        <div class="empty-state">
+          <span class="empty-state__icon"><svg class="icon" aria-hidden="true"><use href="#i-hourglass"/></svg></span>
+          <h2>Findings coming soon</h2>
+          <p>The outcomes of the workshop will be uploaded here once the organizing team has analyzed the conversations and group reports. Check back in a few months!</p>
+        </div>
+
+        <section class="section" aria-labelledby="input-title">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">What happens next</p>
+              <h2 class="section-title" id="input-title">How your input will be used</h2>
+            </div>
+          </div>
+          <div class="grid grid--3">
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+              <h3>An academic publication</h3>
+              <p>The organizing team will analyze the conversations and documentation, and write a scientific article to be submitted for publication.</p>
+            </article>
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-shield-check"/></svg></span>
+              <h3>A safer FRED</h3>
+              <p>The risks you find will inform future safeguards before FRED is used more widely.</p>
+            </article>
+            <article class="card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-map"/></svg></span>
+              <h3>A map of risks</h3>
+              <p>Your findings will help build a taxonomy of risks for learning parenting skills with conversational AI.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer on-dark">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a class="brand" href="#home">
+          <svg class="brand__mark" viewBox="0 0 36 36" aria-hidden="true">
+            <rect width="36" height="36" rx="10" fill="#8AC040"/>
+            <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round">
+              <path d="M22.5 7.5v13M16.87 10.75l11.26 6.5M16.87 17.25l11.26-6.5M8 28.5c2.6-4.6 6.4-8.7 13.4-13.2"/>
+            </g>
+          </svg>
+          <span class="brand__name">Stress-test FRED</span>
+        </a>
+        <p>A community red-teaming workshop at <a href="https://d3aconference.dk" target="_blank" rel="noopener">D3A&nbsp;2026</a>. Thursday, 8&nbsp;October 2026, 11:00–12:30, Sal D, Hotel Nyborg Strand, Nyborg.</p>
+      </div>
+      <nav aria-label="Footer">
+        <p class="footer-title">Pages</p>
+        <ul class="footer-links">
+          <li><a href="#home" data-nav="home">Home</a></li>
+          <li><a href="#agenda" data-nav="agenda">Agenda</a></li>
+          <li><a href="#fred" data-nav="fred">Meet FRED</a></li>
+          <li><a href="#examples" data-nav="examples">Examples</a></li>
+          <li><a href="#instructions" data-nav="instructions">Instructions</a></li>
+          <li><a href="#findings" data-nav="findings">Findings</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__contact">
+        <p class="footer-title">Contact</p>
+        <a data-config-email><span data-email-text><span class="todo">[contact email]</span></span></a>
+      </div>
+    </div>
+    <div class="container site-footer__bottom">
+      <p>© 2026 The Stress-test FRED organizing team</p>
+      <button class="back-to-top" type="button" data-back-to-top>Back to top <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></button>
+    </div>
+  </footer>
+</body>
+</html>
