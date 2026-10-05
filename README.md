@@ -40,7 +40,8 @@ conversation with benign intent and one with adversarial intent. In a message:
 - wrap the exact words where the risk appears in `==double equals signs==` to highlight them;
 - add `risk: "…"` to flag the message and show the explanation underneath it.
 
-Once the real examples are in, set `sample: false` to hide the "sample content" notice.
+The last two items in the risks list open pop-ups (the risk word cloud and a prompt to think of new risks).
+Their text is in `index.html`, in the `<dialog>` elements of the Examples tab.
 
 ## Updating the slides
 

@@ -404,10 +404,7 @@
     var checked = $('input[name="intent"]:checked');
     var state = { intent: checked && INTENTS[checked.value] ? checked.value : 'benign', index: 0 };
 
-    if (data.sample) {
-      var note = $('[data-sample-note]');
-      if (note) note.hidden = false;
-    }
+    var scroller = $('[data-risk-scroll]') || list;
 
     var tabs = risks.map(function (risk, i) {
       var tab = h('button', {
@@ -427,6 +424,11 @@
       });
       list.appendChild(tab);
       return tab;
+    });
+
+    // The pop-up items after the risks continue the numbering.
+    $$('[data-extra-index]').forEach(function (el, k) {
+      el.textContent = pad(risks.length + k + 1);
     });
 
     list.addEventListener('keydown', function (e) {
@@ -479,8 +481,8 @@
         tab.tabIndex = j === i ? 0 : -1;
       });
       panel.setAttribute('aria-labelledby', tabs[i].id);
-      if (list.scrollWidth > list.clientWidth) {
-        list.scrollTo({ left: tabs[i].offsetLeft - 16, behavior: 'smooth' });
+      if (scroller.scrollWidth > scroller.clientWidth) {
+        scroller.scrollTo({ left: tabs[i].offsetLeft - 16, behavior: 'smooth' });
       }
       render(fromPanel);
     }
@@ -529,6 +531,10 @@
       if (risk.description) panel.appendChild(h('p', { class: 'example__desc', text: risk.description }));
 
       if (example && example.conversation && example.conversation.length) {
+        if (example.scenario) {
+          panel.appendChild(h('p', { class: 'example__label' }, [icon('scenario'), 'Scenario']));
+          panel.appendChild(h('p', { class: 'scenario', text: example.scenario }));
+        }
         panel.appendChild(h('p', { class: 'example__label' }, [icon('chat'), 'Conversation']));
         panel.appendChild(h('div', { class: 'chat-window' }, [renderConversation(example)]));
       } else {
@@ -575,7 +581,34 @@
     select(0);
   }
 
+  /* ---------- Pop-ups (native <dialog>) ---------- */
+
+  function initDialogs() {
+    $$('[data-dialog-open]').forEach(function (button) {
+      var dialog = document.getElementById(button.getAttribute('data-dialog-open'));
+      if (!dialog || !dialog.showModal) return;
+      button.addEventListener('click', function () {
+        dialog.showModal();
+      });
+    });
+    $$('dialog').forEach(function (dialog) {
+      $$('[data-dialog-close]', dialog).forEach(function (button) {
+        button.addEventListener('click', function () {
+          dialog.close();
+        });
+      });
+      // A click on the dimmed backdrop (outside the box) closes the pop-up.
+      dialog.addEventListener('click', function (e) {
+        if (e.target !== dialog) return;
+        var r = dialog.getBoundingClientRect();
+        var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+        if (!inside) dialog.close();
+      });
+    });
+  }
+
   initConfigLinks();
   initSlides();
   initExamples();
+  initDialogs();
 })();
