@@ -6,7 +6,7 @@
  */
 window.SITE_CONFIG = {
   // Link to the workshop instance of FRED (Instructions, step 2).
-  fredUrl: '',
+  fredUrl: 'https://fred-workshop.vercel.app/',
 
   // Link to the group documentation form (Instructions, step 3).
   reportFormUrl: 'https://forms.gle/m7rT5oD3rvLgJBtJ8',
