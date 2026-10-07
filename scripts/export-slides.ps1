@@ -14,7 +14,7 @@
 #>
 param(
   [Parameter(Mandatory = $true)][string]$Deck,
-  [string]$OutDir = (Join-Path $PSScriptRoot '..\assets\slides'),
+  [string]$OutDir = '',
   [string]$PdfName = 'stress-test-fred-slides.pdf',
   [int]$Width = 1920,
   [int]$ThumbWidth = 384,
@@ -23,6 +23,17 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
+
+$scriptRoot = $PSScriptRoot
+if ([string]::IsNullOrWhiteSpace($scriptRoot)) {
+  $scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+}
+if ([string]::IsNullOrWhiteSpace($scriptRoot)) {
+  throw 'Unable to determine the export script directory. Pass an explicit -OutDir path.'
+}
+if ([string]::IsNullOrWhiteSpace($OutDir)) {
+  $OutDir = Join-Path $scriptRoot '..\assets\slides'
+}
 
 $deckPath = (Resolve-Path -LiteralPath $Deck).Path
 $OutDir = [System.IO.Path]::GetFullPath($OutDir)

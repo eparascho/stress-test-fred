@@ -50,56 +50,61 @@ window.WORKSHOP_SLIDES = {
                    {
                        "src":  "assets/slides/slide-10.jpg",
                        "thumb":  "assets/slides/thumbs/slide-10.jpg",
-                       "title":  "How a risk can show up in a conversation"
+                       "title":  "Red-teaming means probing a system in ways that can make it expose risks, to find them before real users do."
                    },
                    {
                        "src":  "assets/slides/slide-11.jpg",
                        "thumb":  "assets/slides/thumbs/slide-11.jpg",
-                       "title":  "Red-teaming means probing a system in ways that can make it expose risks, to find them before real users do."
+                       "title":  "Hallucination in benign use"
                    },
                    {
                        "src":  "assets/slides/slide-12.jpg",
                        "thumb":  "assets/slides/thumbs/slide-12.jpg",
-                       "title":  "Form mixed groups of 3–5 people"
+                       "title":  "Hallucination in adversarial use"
                    },
                    {
                        "src":  "assets/slides/slide-13.jpg",
                        "thumb":  "assets/slides/thumbs/slide-13.jpg",
-                       "title":  "Your group\u0027s intent"
+                       "title":  "Form mixed groups of 3–5 people"
                    },
                    {
                        "src":  "assets/slides/slide-14.jpg",
                        "thumb":  "assets/slides/thumbs/slide-14.jpg",
-                       "title":  "Write prompts that are likely to draw out diverse risks from FRED, then discuss which risks appear in your conversati..."
+                       "title":  "Your group\u0027s intent"
                    },
                    {
                        "src":  "assets/slides/slide-15.jpg",
                        "thumb":  "assets/slides/thumbs/slide-15.jpg",
-                       "title":  "Three steps"
+                       "title":  "Write prompts that are likely to draw out diverse risks from FRED, then discuss which risks appear in your conversati..."
                    },
                    {
                        "src":  "assets/slides/slide-16.jpg",
                        "thumb":  "assets/slides/thumbs/slide-16.jpg",
-                       "title":  "Good to know"
+                       "title":  "Three steps"
                    },
                    {
                        "src":  "assets/slides/slide-17.jpg",
                        "thumb":  "assets/slides/thumbs/slide-17.jpg",
-                       "title":  "Red-teaming activity"
+                       "title":  "Good to know"
                    },
                    {
                        "src":  "assets/slides/slide-18.jpg",
                        "thumb":  "assets/slides/thumbs/slide-18.jpg",
-                       "title":  "What did you find?"
+                       "title":  "Red-teaming activity"
                    },
                    {
                        "src":  "assets/slides/slide-19.jpg",
                        "thumb":  "assets/slides/thumbs/slide-19.jpg",
-                       "title":  "How your input will be used"
+                       "title":  "What did you find?"
                    },
                    {
                        "src":  "assets/slides/slide-20.jpg",
                        "thumb":  "assets/slides/thumbs/slide-20.jpg",
+                       "title":  "How your input will be used"
+                   },
+                   {
+                       "src":  "assets/slides/slide-21.jpg",
+                       "thumb":  "assets/slides/thumbs/slide-21.jpg",
                        "title":  "Thank you"
                    }
                ]

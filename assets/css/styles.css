@@ -2643,3 +2643,18 @@ html:has(dialog[open]) {
   color: var(--muted);
   font-size: 1.08rem;
 }
+
+/* Logo rows (conflicts of interest and funding). Each logo's height is set
+   inline so that the marks look balanced next to each other. */
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 32px;
+  list-style: none;
+}
+
+.logos img {
+  width: auto;
+  max-width: 100%;
+}

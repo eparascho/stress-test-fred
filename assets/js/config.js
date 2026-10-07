@@ -9,7 +9,7 @@ window.SITE_CONFIG = {
   fredUrl: '',
 
   // Link to the group documentation form (Instructions, step 3).
-  reportFormUrl: '',
+  reportFormUrl: 'https://forms.gle/m7rT5oD3rvLgJBtJ8',
 
   // Contact emails shown on the Home page and in the footer.
   workshopEmail: 'evpa@dtu.dk',                       // the workshop and publication
