@@ -72,6 +72,7 @@
     <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
     <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
     <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11v-1a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
     <symbol id="i-scenario" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/></symbol>
     <symbol id="i-window" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4M2 8h20M6 4v4"/></symbol>
@@ -165,7 +166,7 @@
               <p class="eyebrow">Welcome</p>
               <h2 class="section-title" id="welcome-title">Today, you become a red-teamer</h2>
             </div>
-            <p class="section-lead">Together, we will stress-test FRED, a conversational AI for learning parenting skills, to uncover the risks it may pose to the people who use it.</p>
+            <p class="section-lead">Together, we will stress-test FRED, an app with conversational AI for learning parenting skills, to uncover the risks it may pose to the people who use it.</p>
           </div>
           <div class="grid grid--3">
             <article class="card">
@@ -441,11 +442,15 @@
             <header class="page-header">
               <p class="eyebrow">The application</p>
               <h1 class="page-title" id="fred-title" tabindex="-1">Meet FRED</h1>
-              <p class="lead">FRED is a conversational AI that helps parents of children with emotional and behavioral problems learn and practice parenting skills.</p>
+              <p class="lead">FRED is a mobile app with conversational AI that helps parents of children with emotional and behavioral problems seeking help to learn and practice parenting skills.</p>
             </header>
             <div class="card why-card">
               <h2>Why we built it</h2>
-              <p><span class="todo">[Motivation for creating FRED.]</span></p>
+              <ul class="why-card__list">
+                <li>In Denmark, demand and waiting time for child psychiatry are growing (Dalsgaard et al., 2020).</li>
+                <li>Parents are a key resource for prevention and early intervention, but access to parent training is limited.</li>
+                <li>FRED's aim is to fill the gap with an accessible tool for parents to practice their communication skills.</li>
+              </ul>
             </div>
           </div>
 
@@ -468,7 +473,7 @@
               </div>
               <div class="facts__row">
                 <dt>Type</dt>
-                <dd>Conversational AI</dd>
+                <dd>Mobile app with Conversational AI</dd>
               </div>
             </dl>
           </aside>
@@ -480,7 +485,7 @@
               <p class="eyebrow">Today we test</p>
               <h2 class="section-title component__title" id="component-title">Suggest a child-friendly activity to strengthen your relationship</h2>
             </div>
-            <p class="section-lead">In this part of FRED, a parent asks for an activity to do with their child, and FRED suggests a child-friendly one that can strengthen their relationship. It is the focus of today's red-teaming.</p>
+            <p class="section-lead">In this part of FRED, a parent asks for an activity to do with their child, and FRED suggests a child-friendly one that can help grow the connection with their child.</p>
           </div>
 
           <article class="card">
@@ -488,7 +493,11 @@
               <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg></span>
               <h3>Purpose of use</h3>
             </div>
-            <p><span class="todo">[What parents use this component for, and typical situations in which a parent would ask for an activity.]</span></p>
+            <ul class="purpose-list">
+              <li>Reconnecting after a conflict</li>
+              <li>Making one-on-one time with your child</li>
+              <li>Getting ideas for different age-appropriate activities</li>
+            </ul>
           </article>
 
           <div class="devbox on-dark" aria-labelledby="dev-title" role="region">
@@ -496,35 +505,37 @@
               <span class="devbox__icon"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></span>
               <div>
                 <h3 class="devbox__title" id="dev-title">Development info</h3>
-                <p class="devbox__intro">What is currently implemented in FRED for this component, so you know which guardrails and safeguards you are testing against.</p>
+                <p class="devbox__intro">How FRED is instructed to behave in this component.</p>
               </div>
             </div>
             <dl class="devbox__list">
               <div class="devbox__item">
-                <dt><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>Knowledge sources</dt>
-                <dd><span class="todo">[The books and other sources FRED's suggestions are based on.]</span></dd>
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg>Language</dt>
+                <dd>FRED replies only in English.</dd>
               </div>
               <div class="devbox__item">
-                <dt><svg class="icon" aria-hidden="true"><use href="#i-shield-check"/></svg>Guardrails</dt>
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Tone</dt>
+                <dd>Warm, encouraging, curious, non-judgmental, supportive, practical and playful.</dd>
+              </div>
+              <div class="devbox__item">
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-fred"/></svg>Rules for the role</dt>
                 <dd>
-                  <ul>
-                    <li><span class="todo">[Guardrail, e.g. topics FRED declines to discuss]</span></li>
-                    <li><span class="todo">[Guardrail, e.g. how FRED keeps suggestions age-appropriate]</span></li>
+                  <ul class="devbox__bullets">
+                    <li>Acts as a parent support coach who asks questions to help the parent find their own ideas</li>
+                    <li>Suggests simple, age-appropriate activities that match the child's interests and strengthen connection</li>
+                    <li>Keeps activities cheap and based on things found at home</li>
                   </ul>
                 </dd>
               </div>
               <div class="devbox__item">
-                <dt><svg class="icon" aria-hidden="true"><use href="#i-lifebuoy"/></svg>Safeguards</dt>
+                <dt><svg class="icon" aria-hidden="true"><use href="#i-shield-check"/></svg>Rules for the responses</dt>
                 <dd>
-                  <ul>
-                    <li><span class="todo">[Safeguard, e.g. how FRED responds to signs of crisis or risk to a child]</span></li>
-                    <li><span class="todo">[Safeguard, e.g. when FRED refers parents to professional help]</span></li>
+                  <ul class="devbox__bullets">
+                    <li>One question at a time</li>
+                    <li>Short: 2–4 sentences</li>
+                    <li>No long explanations</li>
                   </ul>
                 </dd>
-              </div>
-              <div class="devbox__item">
-                <dt><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Known limitations</dt>
-                <dd><span class="todo">[What this component is not designed to do.]</span></dd>
               </div>
             </dl>
           </div>
@@ -711,8 +722,8 @@
               <div class="step__note">
                 <p>The report asks:</p>
                 <ol>
-                  <li>How did different members contribute to the activity?</li>
-                  <li>How important was each contribution?</li>
+                  <li>How did different roles contribute to the activity?</li>
+                  <li>How influential each role was?</li>
                   <li>Which risks did you identify?</li>
                 </ol>
               </div>
@@ -734,8 +745,8 @@
             <li class="tip">
               <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-window"/></svg></span>
               <div>
-                <h3>Stay in the same browser</h3>
-                <p>Use FRED in the same browser throughout, even when you start a new conversation.</p>
+                <h3>Enter group number and intent</h3>
+                <p>Re-enter your group number and intent whenever you start a new conversation or open FRED in a new browser window.</p>
               </div>
             </li>
             <li class="tip">
@@ -748,7 +759,7 @@
             <li class="tip">
               <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
               <div>
-                <h3>Chat with FRED individually</h3>
+                <h3>Brainstorm with your grpup, then Chat with FRED individually</h3>
                 <p>Try the different ideas from your group's brainstorm on your own.</p>
               </div>
             </li>
@@ -756,7 +767,7 @@
               <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-clipboard-list"/></svg></span>
               <div>
                 <h3>One report per group</h3>
-                <p>Include every member's individual contributions.</p>
+                <p>Discuss your learnings as a group and report them.</p>
               </div>
             </li>
           </ul>

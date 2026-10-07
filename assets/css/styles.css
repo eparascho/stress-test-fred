@@ -493,6 +493,14 @@ button {
   color: var(--muted);
 }
 
+.purpose-list {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
 .card__head {
   display: flex;
   align-items: center;
@@ -1297,6 +1305,13 @@ button {
   font-weight: 700;
 }
 
+.why-card__list {
+  display: grid;
+  gap: 10px;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
 .facts {
   padding: 28px;
   border-radius: var(--radius-lg);
@@ -1436,6 +1451,26 @@ button {
 
 .devbox__item dd {
   margin: 0;
+}
+
+.devbox__bullets {
+  gap: 8px;
+}
+
+.devbox__bullets li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.devbox__bullets li::before {
+  content: "";
+  position: absolute;
+  top: 0.62em;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
 }
 
 .devbox__item ul {
