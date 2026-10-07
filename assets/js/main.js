@@ -220,12 +220,20 @@
       if (use) use.setAttribute('href', '#i-clock');
     });
 
-    var email = String(config.contactEmail || '').trim();
     $$('[data-config-email]').forEach(function (link) {
+      var email = String(config[link.getAttribute('data-config-email')] || '').trim();
       if (email) {
         link.href = 'mailto:' + email;
         var text = $('[data-email-text]', link);
-        if (text) text.textContent = email;
+        if (text) {
+          // Let long addresses wrap before the @ rather than mid-word.
+          var at = email.indexOf('@');
+          text.textContent = at > 0 ? email.slice(0, at) : email;
+          if (at > 0) {
+            text.appendChild(document.createElement('wbr'));
+            text.appendChild(document.createTextNode(email.slice(at)));
+          }
+        }
       } else {
         link.removeAttribute('href');
         if (link.classList.contains('btn')) link.classList.add('is-pending');

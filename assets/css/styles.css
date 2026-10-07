@@ -777,7 +777,7 @@ button {
 
 .team {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 196px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   gap: 16px;
   list-style: none;
 }
@@ -879,6 +879,33 @@ button {
   color: var(--muted);
 }
 
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.contact-card .contact-item__label {
+  color: var(--subtle);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-item .btn {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
 /* --- Agenda -------------------------------------------------------------- */
 
 .agenda-wrap {
@@ -923,6 +950,7 @@ button {
 }
 
 .agenda__session {
+  width: 30%;
   font-weight: 700;
 }
 
@@ -954,10 +982,18 @@ button {
   font-weight: 600;
 }
 
-.speaker__aff {
+.speaker__role {
   display: block;
   color: var(--muted);
   font-size: 0.875rem;
+}
+
+.speaker__aff {
+  display: block;
+  margin-top: 2px;
+  color: var(--subtle);
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 .tag {
@@ -2360,7 +2396,8 @@ mark {
     grid-template-columns: 1fr 1fr;
   }
 
-  .site-footer__brand {
+  .site-footer__brand,
+  .site-footer__contact {
     grid-column: 1 / -1;
   }
 }
@@ -2397,6 +2434,21 @@ mark {
 
 .site-footer__contact a {
   word-break: break-word;
+}
+
+.footer-contacts {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.footer-contacts dt {
+  color: var(--on-dark-muted);
+  font-size: 0.85rem;
+}
+
+.footer-contacts dd {
+  margin: 0;
 }
 
 .site-footer__bottom {

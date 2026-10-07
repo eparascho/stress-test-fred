@@ -11,6 +11,7 @@ window.SITE_CONFIG = {
   // Link to the group documentation form (Instructions, step 3).
   reportFormUrl: '',
 
-  // Contact email shown on the Home page and in the footer.
-  contactEmail: ''
+  // Contact emails shown on the Home page and in the footer.
+  workshopEmail: 'evpa@dtu.dk',                       // the workshop and publication
+  fredEmail: 'nicole.nadine.loenfeldt@regionh.dk'     // FRED
 };

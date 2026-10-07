@@ -27,7 +27,7 @@ Every tab has its own link, for example `https://eparascho.github.io/stress-test
 - **Text**: edit `index.html`. Each tab is a `<section class="page">` with a comment banner above it.
 - **Placeholders**: text that still needs real content is wrapped in `<span class="todo">[…]</span>` and is
   highlighted in amber on the page. Search for `class="todo"` to find every one.
-- **Links and email**: fill in `assets/js/config.js`. Until a value is filled in, its button shows a
+- **Links and email**: fill in `assets/js/config.js` (the two contact emails are set there too). Until a value is filled in, its button shows a
   "coming soon" state.
 - **Team photos**: add a square JPG (about 400 × 400 px) to `assets/img/team/`, then replace the person's
   initials `<span class="person__avatar …">` with an `<img class="person__avatar" …>` like the others.
